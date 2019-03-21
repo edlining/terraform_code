@@ -10,6 +10,11 @@ resource "aws_instance" "example" {
 # S3 bucket has been created.
   depends_on = ["aws_s3_bucket.RStf"]
 
+tags = {
+    Name = "ExampleTF"
+  }
+
+
 provisioner "local-exec" {
     command = "echo ${aws_instance.example.public_ip} > ip_address.txt"
   }
@@ -23,6 +28,7 @@ resource "aws_eip" "ip" {
 resource "aws_s3_bucket" "RStf" {
   bucket = "remotestatetf"
   acl    = "private"
+  force_destroy = true
 }
 
 # remote state S3
