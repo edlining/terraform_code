@@ -6,6 +6,7 @@ provider "aws" {
 resource "aws_instance" "example" {
   ami           = "${lookup(var.amis, var.region)}"
   instance_type = "${var.instance_type}"
+  key_name = "${var.key_name}"
 # Tells Terraform that this EC2 instance must be created only after the
 # S3 bucket has been created.
   depends_on = ["aws_s3_bucket.RStf"]

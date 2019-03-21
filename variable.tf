@@ -6,6 +6,9 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
+variable "key_name" {
+  default = "Aws_edo"
+}
 variable "amis" {
   type = "map"
   default = {
