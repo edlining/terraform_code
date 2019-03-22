@@ -7,39 +7,31 @@ resource "aws_instance" "example" {
   ami           = "${lookup(var.amis, var.region)}"
   instance_type = "${var.instance_type}"
   key_name = "${var.key_name}"
+  tags = {
+    Name = "ExampleTF"
+}
+  }
 # Tells Terraform that this EC2 instance must be created only after the
 # S3 bucket has been created.
-  depends_on = ["aws_s3_bucket.RStf"]
+#  depends_on = ["aws_s3_bucket.RStf"]
 
-tags = {
-    Name = "ExampleTF"
-  }
-
-
-provisioner "local-exec" {
-    command = "echo ${aws_instance.example.public_ip} > ip_address.txt"
-  }
+resource "aws_key_pair" "terraform_ec2_key" {
+  key_name = "terraform_ec2_key"
+  public_key = "${file("/Users/edlining/Desktop/AWS_Credentials/terraform_ec2_key.pub")}"
 }
+
+#provisioner "local-exec" {
+#    command = "echo ${aws_instance.example.public_ip} > ip_address.txt"
+#  }
+#}
 
 resource "aws_eip" "ip" {
   instance = "${aws_instance.example.id}"
+tags = {
+    Name = "EipExample"
+}
 }
 
-# New resource for the S3 bucket our application will use.
-resource "aws_s3_bucket" "RStf" {
-  bucket = "remotestatetf"
-  acl    = "private"
-  force_destroy = true
-}
-
-# remote state S3
-terraform {
-  backend "s3" {
-    bucket = "remotestatetf"
-    key    = "terraform.tfstate"
-    region = "us-east-1"
-  }
-}
 output "ip" {
   value = "${aws_eip.ip.public_ip}"
 }

@@ -7,8 +7,9 @@ variable "instance_type" {
 }
 
 variable "key_name" {
-  default = "Aws_edo"
+  default = "terraform_ec2_key"
 }
+
 variable "amis" {
   type = "map"
   default = {
