@@ -10,10 +10,10 @@ resource "aws_s3_bucket" "RStf" {
 }
 
 # This sets up the tf remote state to S3. Uncomment once S3 bucket has been create.Then run terraform init to move tf state remotly on the S3 bucket.
-#terraform {
-#  backend "s3" {
-#    bucket = "remotestatetf"
-#    key    = "terraform.tfstate"
-#    region = "us-east-1"
-#               }
-#}
+terraform {
+  backend "s3" {
+    bucket = "remotestatetf"
+    key    = "terraform.tfstate"
+    region = "us-east-1"
+               }
+}

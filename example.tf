@@ -10,6 +10,7 @@ resource "aws_instance" "example" {
   tags = {
     Name = "ExampleTF"
 }
+security_groups = ["${aws_security_group.allow_tls.name}"]
   }
 # Tells Terraform that this EC2 instance must be created only after the
 # S3 bucket has been created.
@@ -34,4 +35,8 @@ tags = {
 
 output "ip" {
   value = "${aws_eip.ip.public_ip}"
+}
+
+data "http" "myip" {
+  url = "http://ipv4.icanhazip.com"
 }
