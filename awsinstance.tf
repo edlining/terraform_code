@@ -11,7 +11,11 @@ resource "aws_instance" "awsinstance" {
     Name = "awsinstanceTF"
 }
 security_groups = ["${aws_security_group.allow_tls.name}"]
+
+provisioner "local-exec" {
+    command = "echo ${aws_instance.awsinstance.public_ip} >> /etc/ansible/hosts"
   }
+                                       }
 
 resource "aws_key_pair" "terraform_ec2_key" {
   key_name = "terraform_ec2_key"
