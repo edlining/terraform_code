@@ -12,24 +12,16 @@ resource "aws_instance" "awsinstance" {
 }
 security_groups = ["${aws_security_group.allow_tls.name}"]
   }
-# Tells Terraform that this EC2 instance must be created only after the
-# S3 bucket has been created.
-#  depends_on = ["aws_s3_bucket.RStf"]
 
 resource "aws_key_pair" "terraform_ec2_key" {
   key_name = "terraform_ec2_key"
   public_key = "${file("/Users/edlining/Desktop/AWS_Credentials/terraform_ec2_key.pub")}"
 }
 
-#provisioner "local-exec" {
-#    command = "echo ${aws_instance.awsinstance.public_ip} > ip_address.txt"
-#  }
-#}
-
 resource "aws_eip" "ip" {
   instance = "${aws_instance.awsinstance.id}"
 tags = {
-    Name = "EipExample"
+    Name = "Eipawsinstance"
 }
 }
 
@@ -37,6 +29,7 @@ output "ip" {
   value = "${aws_eip.ip.public_ip}"
 }
 
+# get my public ip for inbound SG rule
 data "http" "myip" {
   url = "http://ipv4.icanhazip.com"
 }
