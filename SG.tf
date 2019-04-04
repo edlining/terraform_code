@@ -4,7 +4,7 @@ resource "aws_security_group" "allow_tls" {
   #vpc_id      = "${aws_vpc.main.id}"
   vpc_id      = "vpc-cbaf2cb1"
   tags = {
-    Name = "SGExample"
+    Name = "SGawsinstance"
 }
 
   ingress {
