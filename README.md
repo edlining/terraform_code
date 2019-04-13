@@ -9,8 +9,7 @@ Example of TF code to:
 
 To do:
 
-
 7. automatically connect via SSH from my desktop to ec2 instance using private key
-8. run ansbile deploy for apache install/setup 
-9. start apache hosting website
-10. add ALB
+8. run ansbile to deploy snen emulator https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/snes9x-gtk/snes9x-1.53-src.tar.bz2
+9. Enable screen X11 Forwarding to my IP https://www.techotopia.com/index.php/Displaying_CentOS_Applications_Remotely_(X11_Forwarding)
+10. Lunch emulator snes9x-1.53-src/unix/docs/readme_unix.html
