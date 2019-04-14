@@ -13,7 +13,7 @@ resource "aws_instance" "awsinstance" {
 security_groups = ["${aws_security_group.allow_tls.name}"]
 
 provisioner "local-exec" {
-    command = "echo ${aws_instance.awsinstance.public_ip} >> /etc/ansible/hosts"
+    command = "echo ${chomp(data.http.myip.body)} >> /Users/edlining/Desktop/Ansible/hosts"
   }
                                        }
 
@@ -32,6 +32,10 @@ tags = {
 output "ip" {
   value = "${aws_eip.ip.public_ip}"
 }
+
+#output "connection_string" {
+#  value = "ssh -i /Users/edlining/Desktop/AWS_Credentials/terraform_ec2_key ec2-user@${aws_eip.ip.public_ip}"
+#}
 
 # get my public ip for inbound SG rule
 data "http" "myip" {
