@@ -13,7 +13,7 @@ resource "aws_instance" "awsinstance" {
 security_groups = ["${aws_security_group.allow_tls.name}"]
 
 provisioner "local-exec" {
-    command = "echo ${chomp(data.http.myip.body)} >> /Users/edlining/Desktop/Ansible/hosts"
+    command = "echo ${aws_eip.ip.public_ip} >> /Users/edlining/Desktop/Ansible/hosts"
   }
                                        }
 
